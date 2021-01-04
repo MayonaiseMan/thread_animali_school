@@ -1,0 +1,15 @@
+C:\Users\tomma\source\repos\thread_animali\thread_animali\bin\Debug\thread_animali.exe.config
+C:\Users\tomma\source\repos\thread_animali\thread_animali\bin\Debug\thread_animali.exe
+C:\Users\tomma\source\repos\thread_animali\thread_animali\bin\Debug\thread_animali.pdb
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali.csprojAssemblyReference.cache
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\MainWindow.g.cs
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\App.g.cs
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali_MarkupCompile.cache
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali_MarkupCompile.lref
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\MainWindow.baml
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali.g.resources
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali.Properties.Resources.resources
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali.csproj.GenerateResource.cache
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali.csproj.CoreCompileInputs.cache
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali.exe
+C:\Users\tomma\source\repos\thread_animali\thread_animali\obj\Debug\thread_animali.pdb
