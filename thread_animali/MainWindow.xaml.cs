@@ -24,7 +24,21 @@ namespace thread_animali
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
+
+        private double inizio;
+        private double fine;
+        private double altezza;
+
+        Thread t1;
+        Thread t2;
+        Thread t3;
+        Thread t4;
+        private Stopwatch Cronometro1;
+        private Stopwatch Cronometro2;
+        private Stopwatch Cronometro3;
+        private List<Tuple<string, double>> tempo;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -62,23 +76,20 @@ namespace thread_animali
             tempo.Add(new Tuple<string, double>("thread 2", 0));
             tempo.Add(new Tuple<string, double>("thread 3", 0));
 
-            
+            t1 = new Thread(new ThreadStart(Metodo1));
+            t2 = new Thread(new ThreadStart(Metodo2));
+            t3 = new Thread(new ThreadStart(Metodo3));
+            t4 = new Thread(new ThreadStart(Metodo4));
+
+            Cronometro1 = new Stopwatch();
+            Cronometro2 = new Stopwatch();
+            Cronometro3 = new Stopwatch();
+
+
 
         }
 
        
-        private double inizio;
-        private double fine;
-        private double altezza;
-
-        Thread t1;
-        Thread t2;
-        Thread t3;
-        Thread t4;
-        private Stopwatch Cronometro1;
-        private Stopwatch Cronometro2;
-        private Stopwatch Cronometro3;
-        private List<Tuple<string,double>> tempo;
 
         private  void Metodo1()
         {
@@ -111,70 +122,92 @@ namespace thread_animali
             {
                 if(t1.IsAlive == false)
                 {
-                    classifica_lbl.Content = classifica_lbl.Content + tempo[0].Item1 + ": " + tempo[0].Item2 + "\n";
+                    this.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Cronometro1.Stop();
+                        tempo[0] = new Tuple<string, double>(tempo[0].Item1, Cronometro1.Elapsed.TotalSeconds);
+                        classifica_lbl.Content = classifica_lbl.Content + tempo[0].Item1 + ": " + tempo[0].Item2 + "\n";
+                    }));
+                    
                 }
 
                 if (t2.IsAlive == false)
                 {
-                    classifica_lbl.Content = classifica_lbl.Content + tempo[1].Item1 + ": " + tempo[1].Item2 + "\n";
+                    this.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Cronometro2.Stop();
+                        tempo[1] = new Tuple<string, double>(tempo[1].Item1, Cronometro2.Elapsed.TotalSeconds);
+                        classifica_lbl.Content = classifica_lbl.Content + tempo[1].Item1 + ": " + tempo[1].Item2 + "\n";
+                    }));
+                   
                 }
                 
                 if (t3.IsAlive == false)
                 {
-                    classifica_lbl.Content = classifica_lbl.Content + tempo[2].Item1 + ": " + tempo[2].Item2 + "\n";
+                    this.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Cronometro3.Stop();
+                        tempo[2] = new Tuple<string, double>(tempo[2].Item1, Cronometro3.Elapsed.TotalSeconds);
+                        classifica_lbl.Content = classifica_lbl.Content + tempo[2].Item1 + ": " + tempo[2].Item2 + "\n";
+                    }));
+                    
                 }
             }
         }
 
         private void Sposta1()
         {
-
+            
             Random rnd = new Random();
-            while (img_1.Margin.Left < fine)
+            this.Dispatcher.BeginInvoke(new Action(() =>
             {
-                int tmp = rnd.Next(10, 51);
-                this.Dispatcher.BeginInvoke(new Action(() =>
+                while (img_1.Margin.Left < fine)
                 {
-                    img_1.Margin = new Thickness(img_1.Margin.Left + tmp, img_1.Margin.Top, 0, 0);
-                }));
-                Thread.Sleep(50);
-            }
 
-            Cronometro1.Stop();
-            tempo[0] = new Tuple<string, double>(tempo[0].Item1, Cronometro1.Elapsed.TotalSeconds);
+                    int tmp = rnd.Next(10, 51);
+                    img_1.Margin = new Thickness(img_1.Margin.Left + tmp, img_1.Margin.Top, 0, 0);
+                    Thread.Sleep(500);
+
+                }
+            }));
+
+
         }
 
         private void Sposta2()
         {
+            
             Random rnd = new Random();
-            while (img_2.Margin.Left < fine)
+            this.Dispatcher.BeginInvoke(new Action(() =>
             {
-                int tmp = rnd.Next(10, 51);
-                this.Dispatcher.BeginInvoke(new Action(() =>
+                while (img_2.Margin.Left < fine)
                 {
+                    int tmp = rnd.Next(10, 51);
                     img_2.Margin = new Thickness(img_2.Margin.Left + tmp, img_2.Margin.Top, 0, 0);
-                }));
-                Thread.Sleep(50);
-            }
-            Cronometro1.Stop();
-            tempo[1] = new Tuple<string, double>(tempo[0].Item1, Cronometro1.Elapsed.TotalSeconds);
+                    Thread.Sleep(500);
+                }
+            }));
+            
+            
         }
 
         private void Sposta3()
         {
 
             Random rnd = new Random();
-            while (img_3.Margin.Left < fine)
+            this.Dispatcher.BeginInvoke(new Action(() =>
             {
-                int tmp = rnd.Next(10, 51);
-                this.Dispatcher.BeginInvoke(new Action(() =>
+                while (img_3.Margin.Left < fine)
                 {
+                    int tmp = rnd.Next(10, 51);
                     img_3.Margin = new Thickness(img_3.Margin.Left + tmp, img_3.Margin.Top, 0, 0);
-                }));
-                Thread.Sleep(50);
-            }
-            Cronometro1.Stop();
-            tempo[2] = new Tuple<string, double>(tempo[0].Item1, Cronometro1.Elapsed.TotalSeconds);
+                    Thread.Sleep(500);
+                }
+
+            }));
+               
+            
+            
             
            
         }
@@ -186,16 +219,8 @@ namespace thread_animali
         }
 
         private void Start()
-        {
-            t1 = new Thread(new ThreadStart(Metodo1));
-            t2 = new Thread(new ThreadStart(Metodo2));
-            t3 = new Thread(new ThreadStart(Metodo3));
-            t4 = new Thread(new ThreadStart(Metodo4));
-
-            Cronometro1 = new Stopwatch();
-            Cronometro2 = new Stopwatch();
-            Cronometro3 = new Stopwatch();
-
+        {            
+            
             t1.Start();
             t2.Start();
             t3.Start();
