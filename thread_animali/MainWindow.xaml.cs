@@ -44,7 +44,7 @@ namespace thread_animali
             InitializeComponent();
 
             inizio = 10;
-            fine = 840;
+            fine = 750;
             altezza = 30;
 
 
@@ -117,10 +117,13 @@ namespace thread_animali
 
         private void Metodo4()
         {
-            bool b = true;
-            while(b)
+            bool bl = true;
+            int a = 0,b = 0,c = 0;
+            while(bl)
             {
-                if(t1.IsAlive == false)
+                
+
+                if(t1.IsAlive == false && a == 0)
                 {
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
@@ -128,21 +131,21 @@ namespace thread_animali
                         tempo[0] = new Tuple<string, double>(tempo[0].Item1, Cronometro1.Elapsed.TotalSeconds);
                         classifica_lbl.Content = classifica_lbl.Content + tempo[0].Item1 + ": " + tempo[0].Item2 + "\n";
                     }));
-                    
+                    a++;
                 }
 
-                if (t2.IsAlive == false)
+                if (t2.IsAlive == false && b == 0)
                 {
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         Cronometro2.Stop();
-                        tempo[1] = new Tuple<string, double>(tempo[1].Item1, Cronometro2.Elapsed.TotalSeconds);
+                        tempo[1] = new Tuple<string, double> (tempo[1].Item1, Cronometro2.Elapsed.TotalSeconds);
                         classifica_lbl.Content = classifica_lbl.Content + tempo[1].Item1 + ": " + tempo[1].Item2 + "\n";
                     }));
-                   
+                    b++;
                 }
                 
-                if (t3.IsAlive == false)
+                if (t3.IsAlive == false && c == 0)
                 {
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
@@ -150,66 +153,71 @@ namespace thread_animali
                         tempo[2] = new Tuple<string, double>(tempo[2].Item1, Cronometro3.Elapsed.TotalSeconds);
                         classifica_lbl.Content = classifica_lbl.Content + tempo[2].Item1 + ": " + tempo[2].Item2 + "\n";
                     }));
-                    
+                    c++;
                 }
+
+                if (a+b+c == 3)
+                    bl = false;
             }
         }
 
         private void Sposta1()
         {
-            
+
             Random rnd = new Random();
-            this.Dispatcher.BeginInvoke(new Action(() =>
+            double ml = 10;
+
+
+            while (ml < fine)
             {
-                while (img_1.Margin.Left < fine)
+                this.Dispatcher.BeginInvoke(new Action(() =>
                 {
-
+                    ml = img_1.Margin.Left;
                     int tmp = rnd.Next(10, 51);
-                    img_1.Margin = new Thickness(img_1.Margin.Left + tmp, img_1.Margin.Top, 0, 0);
-                    Thread.Sleep(500);
+                    img_1.Margin = new Thickness(ml + tmp, img_1.Margin.Top, 0, 0);
 
-                }
-            }));
+                }));
+                Thread.Sleep(rnd.Next(500, 1001));
 
-
+            }
         }
 
         private void Sposta2()
         {
-            
             Random rnd = new Random();
-            this.Dispatcher.BeginInvoke(new Action(() =>
+            double ml = 10;
+
+            while (ml < fine)
             {
-                while (img_2.Margin.Left < fine)
+                this.Dispatcher.BeginInvoke(new Action(() =>
                 {
+                    ml = img_2.Margin.Left;
                     int tmp = rnd.Next(10, 51);
-                    img_2.Margin = new Thickness(img_2.Margin.Left + tmp, img_2.Margin.Top, 0, 0);
-                    Thread.Sleep(500);
-                }
-            }));
-            
-            
+                    img_2.Margin = new Thickness(ml + tmp, img_2.Margin.Top, 0, 0);
+
+                }));
+                Thread.Sleep(rnd.Next(500, 1001));
+
+            }
         }
 
         private void Sposta3()
         {
-
             Random rnd = new Random();
-            this.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                while (img_3.Margin.Left < fine)
-                {
-                    int tmp = rnd.Next(10, 51);
-                    img_3.Margin = new Thickness(img_3.Margin.Left + tmp, img_3.Margin.Top, 0, 0);
-                    Thread.Sleep(500);
-                }
+            double ml = 10;
 
-            }));
-               
-            
-            
-            
-           
+            while (ml < fine)
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    ml = img_3.Margin.Left;
+                    int tmp = rnd.Next(10, 51);
+                    img_3.Margin = new Thickness(ml + tmp, img_3.Margin.Top, 0, 0);
+
+                }));
+                Thread.Sleep(rnd.Next(500,1001));
+
+            }
         }
 
         private void btn_init_Click(object sender, RoutedEventArgs e)
@@ -225,6 +233,12 @@ namespace thread_animali
             t2.Start();
             t3.Start();
             t4.Start();
+
+            t1.Join();
+            t2.Join();
+            t3.Join();
+            t4.Join();
+
         }
     }
 }
