@@ -25,7 +25,7 @@ namespace thread_animali
     public partial class MainWindow : Window
     {
 
-
+         
         private double inizio;
         private double fine;
         private double altezza;
@@ -134,7 +134,7 @@ namespace thread_animali
                     a++;
                 }
 
-                if (t2.IsAlive == false && b == 0)
+                if(t2.IsAlive == false && b == 0)
                 {
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
@@ -145,7 +145,7 @@ namespace thread_animali
                     b++;
                 }
                 
-                if (t3.IsAlive == false && c == 0)
+                if(t3.IsAlive == false && c == 0)
                 {
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
@@ -156,7 +156,7 @@ namespace thread_animali
                     c++;
                 }
 
-                if (a+b+c == 3)
+                if (a+b+c >= 3)
                     bl = false;
             }
         }
@@ -227,7 +227,7 @@ namespace thread_animali
         }
 
         private void Start()
-        {            
+        {
             
             t1.Start();
             t2.Start();
